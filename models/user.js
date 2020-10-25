@@ -24,10 +24,10 @@ const userSchema = new mongoose.Schema({
     profileImageUrl: {
         type: String 
     },
-    // messages: [{
-    //     type: mongoose.Schema.Types.ObjectId,
-    //     ref: "Message"
-    // }]
+    messages: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Message"
+    }]
 }, {timestamp: true});
 
 //hash password for new user, if password already hashed do nothing
@@ -45,7 +45,7 @@ userSchema.pre("save", async function(next){
 });
 
 //compare password of user to stored hashed password in database
-userSchema.method.comparePassword = async function(userPassword, next){
+userSchema.methods.comparePassword = async function(userPassword, next){
     try {
         let isMatch = await bcrypt.compare(userPassword, this.password);
         return isMatch;
