@@ -8,7 +8,7 @@ mongoose.connect(process.env.MONGO_DB_KEY, {
         useCreateIndex: true
     })
     .then(()=>{
-        console.log("Connected to hosted Mongo-Atlas database!")
+        console.log("Connected to hosted local Mongo database!")
     })
     .catch((error)=>{
         console.log("ERROR: ", error.message)
