@@ -2,13 +2,12 @@ import React, { Component } from 'react';
 import { connect } from "react-redux";
 import { postNewMessage } from "../store/actions/messages";
 
-
 class MessageForm extends Component {
     constructor(props){
         super(props);
         this.state = {
-            message: ""
-        }
+            message: " "
+        };
     }
 
     handleNewMessage = e => {
@@ -26,7 +25,8 @@ class MessageForm extends Component {
 
     render() {
         return (
-            <form onSubmit={this.handleNewMessage}>
+            <div >
+            <form >
                 {this.props.errors.message && (
                     <div className="alert alert-danger">
                         {this.props.errors.message}
@@ -38,15 +38,18 @@ class MessageForm extends Component {
                     value={this.state.message}
                     onChange={this.handleChange}
                 />
-                <button type="submit" className="btn btn-success">
+                <button 
+                        onSubmit={this.handleNewMessage} 
+                        type="submit" 
+                        className="btn btn-success"
+                >
                     Post Message
                 </button>
             </form>
+            </div>
         )
     }
 }
-
-
 
 function mapStateToProps(state){
     return {
@@ -54,4 +57,4 @@ function mapStateToProps(state){
     };
 }
 
-export default connect(mapStateToProps, {postNewMessage})(MessageForm);
+export default connect(mapStateToProps, { postNewMessage })(MessageForm);

@@ -1,15 +1,15 @@
 import React from "react";
-import { Switch, Route, withRouter, Redirect } from "react-router-dom";
+import { Switch, Route, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import Homepage from "../components/Homepage";
 import AuthForm from "../components/AuthForm";
-import {authUser} from "../store/actions/auth";
+import { authUser } from "../store/actions/auth";
 import { removeError } from "../store/actions/errors";
 import withAuth from "../hocs/withAuth";
 import MessageForm from "../containers/MessageForm";
 
- function Main(props) {
-     const { authUser, errors, currentUser } = props;
+ const Main = (props) => {
+     const { authUser, errors, removeError, currentUser } = props;
     return (
         <div className="container">
             <Switch>
@@ -20,8 +20,7 @@ import MessageForm from "../containers/MessageForm";
                             currentUser={currentUser} 
                             {...props} />}  
                         />  
-                <Route exact 
-                        path="/signin" 
+                <Route exact path="/signin" 
                         render={props => {
                     return(
                         <AuthForm 
@@ -45,11 +44,14 @@ import MessageForm from "../containers/MessageForm";
                         heading="Join Barker!" {...props}/>
                         )
                 }}/>
-                <Route path="/users/:id/messsages/new" component={withAuth(MessageForm)} />       
+                <Route 
+                    path="/users/:id/messsages/new" 
+                    component={withAuth(MessageForm)} 
+                />       
             </Switch>
         </div>
-    )
-}
+    );
+};
 
 function mapStateToProps(state){
     return {

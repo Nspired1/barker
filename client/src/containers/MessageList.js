@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import {connect} from "react-redux";
-import {fetchMessages} from "../store/actions/messages";
+import { connect } from "react-redux";
+import { fetchMessages, removeMessage } from "../store/actions/messages";
 import MessageItem from "../components/MessageItem";
 
 class MessageList extends Component {
@@ -8,7 +8,7 @@ class MessageList extends Component {
         this.props.fetchMessages();
     }
     render(){
-        const { messages} = this.props;
+        const { messages, removeMessage, currentUser } = this.props;
         let messageList = messages.map(message => (
             <MessageItem 
                 key={message._id} 
@@ -16,6 +16,8 @@ class MessageList extends Component {
                 text={message.text}
                 username={message.user.username}
                 profileImageUrl = {message.user.profileImageUrl}
+                removeMessage={removeMessage.bind(this, message.user._id, message._id)}
+                isCorrectUser = {currentUser === message.user._id}
             />
         ));
         return (
@@ -32,8 +34,9 @@ class MessageList extends Component {
 
 function mapStateToProps(state){
     return {
-        messages: state.messages
+        messages: state.messages,
+        currentUser: state.currentUser.user.id
     };
 }
 
-export default connect(mapStateToProps, { fetchMessages })(MessageList);
+export default connect(mapStateToProps, { fetchMessages, removeMessage })(MessageList);
