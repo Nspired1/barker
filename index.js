@@ -7,10 +7,12 @@ const errorHandler = require("./handlers/error");
 const authRoutes = require("./routes/authRoute");
 const msgRoutes = require("./routes/messageRoute");
 const { loginRequired, checkCorrectUser } = require('./middleware/authMiddleware');
+const db = require("./models/dbLink");
 
 //env variables
 const PORT = process.env.PORT || 7070;
 const IP = process.env.IP;
+
 //use packages
 app.use(cors());
 app.use(bodyParser.json());
