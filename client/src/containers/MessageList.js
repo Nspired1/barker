@@ -12,7 +12,7 @@ class MessageList extends Component {
         let messageList = messages.map(message => (
             <MessageItem 
                 key={message._id} 
-                date={message.createAt}
+                date={message.created}
                 text={message.text}
                 username={message.user.username}
                 profileImageUrl = {message.user.profileImageUrl}
@@ -38,5 +38,6 @@ function mapStateToProps(state){
         currentUser: state.currentUser.user.id
     };
 }
+
 
 export default connect(mapStateToProps, { fetchMessages, removeMessage })(MessageList);

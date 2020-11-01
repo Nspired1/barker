@@ -8,13 +8,13 @@ import { removeError } from "../store/actions/errors";
 import withAuth from "../hocs/withAuth";
 import MessageForm from "../containers/MessageForm";
 
- const Main = (props) => {
+
+ const Main = props => {
      const { authUser, errors, removeError, currentUser } = props;
     return (
         <div className="container">
             <Switch>
-                <Route exact 
-                    path="/" 
+                <Route exact path="/" 
                     render={props => 
                         <Homepage 
                             currentUser={currentUser} 
@@ -34,20 +34,18 @@ import MessageForm from "../containers/MessageForm";
                 }}/> 
                  <Route exact path="/signup" 
                         render={props => {
-                        return(
+                    return(
                         <AuthForm 
-                        errors={errors}
-                        removeError={removeError}
-                        onAuth={authUser}
-                        signUp
-                        buttonText="Sign me up!" 
-                        heading="Join Barker!" {...props}/>
-                        )
+                            errors={errors}
+                            removeError={removeError}
+                            onAuth={authUser}
+                            signUp
+                            buttonText="Sign me up!" 
+                            heading="Join Barker!" 
+                            {...props}/>
+                    )
                 }}/>
-                <Route 
-                    path="/users/:id/messsages/new" 
-                    component={withAuth(MessageForm)} 
-                />       
+                <Route path="/users/:id/messages/new" component={withAuth(MessageForm)}/>     
             </Switch>
         </div>
     );
@@ -60,4 +58,4 @@ function mapStateToProps(state){
     };
 }
 
-export default withRouter(connect(mapStateToProps, {authUser, removeError})(Main));
+export default withRouter(connect(mapStateToProps, { authUser, removeError })(Main));

@@ -17,7 +17,7 @@ export default function withAuth(ComponentToBeRendered){
             return <ComponentToBeRendered {...this.props} />
         }
     }
-
+    
     function mapStateToProps(state){
         return {
             isAuthenticated: state.currentUser.isAuthenticated

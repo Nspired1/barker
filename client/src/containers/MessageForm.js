@@ -6,7 +6,7 @@ class MessageForm extends Component {
     constructor(props){
         super(props);
         this.state = {
-            message: " "
+            message: ""
         };
     }
 
@@ -19,33 +19,37 @@ class MessageForm extends Component {
 
     handleChange = e => {
         this.setState({
-            message: e.target.value
+            [e.target.name]: e.target.value
         })
     };
 
     render() {
+        const { message } = this.state
         return (
-            <div >
-            <form >
-                {this.props.errors.message && (
-                    <div className="alert alert-danger">
-                        {this.props.errors.message}
-                    </div>
-                )}
-                <input 
-                    type="text" 
-                    className="form-control"
-                    value={this.state.message}
-                    onChange={this.handleChange}
-                />
-                <button 
-                        onSubmit={this.handleNewMessage} 
-                        type="submit" 
-                        className="btn btn-success"
-                >
-                    Post Message
-                </button>
-            </form>
+            <div>
+            <div>
+                <form onSubmit={this.handleNewMessage} >
+                    {this.props.errors.message && (
+                        <div className="alert alert-danger">
+                            {this.props.errors.message}
+                        </div>
+                    )}
+                    <input 
+                        type="text" 
+                        className="form-control"
+                        name="message"
+                        value={message}
+                        onChange={this.handleChange}
+                    />
+                    <button 
+                            
+                            type="submit" 
+                            className="btn btn-success pull-right"
+                    >
+                        Post Message
+                    </button>
+                </form>
+                </div>
             </div>
         )
     }
